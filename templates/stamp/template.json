@@ -18,25 +18,8 @@
         },
         "virtualMachineSize": {
             "type": "string",
-            "defaultValue": "Standard_D3_v2",
+            "defaultValue": "Standard_D2s_v3",
             "allowedValues": [
-                "Standard_A2",
-                "Standard_A3",
-                "Standard_A4",
-                "Standard_A5",
-                "Standard_A6",
-                "Standard_A7",
-                "Standard_A8",
-                "Standard_A9",
-                "Standard_A10",
-                "Standard_A11",
-                "Standard_D2",
-                "Standard_D3",
-                "Standard_D4",
-                "Standard_D11",
-                "Standard_D12",
-                "Standard_D13",
-                "Standard_D14",
                 "Standard_D1_v2",
                 "Standard_D2_v2",
                 "Standard_D3_v2",
@@ -46,7 +29,8 @@
                 "Standard_D12_v2",
                 "Standard_D13_v2",
                 "Standard_D14_v2",
-                "Standard_D15_v2"
+                "Standard_D15_v2",
+                "Standard_D2s_v3"
             ],
             "metadata": {
                 "description": "Virtual machine size."
@@ -71,20 +55,6 @@
             "defaultValue":50,
             "metadata":{
                 "descrption":"Size of Virtual Machine Disk"
-            }
-        },
-        "cmsBaseURL": {
-            "type": "string",
-            "defaultValue": "studio.enialrahs.org",
-            "metadata": {
-                "description": "description"
-            }
-        },
-        "lmsBaseURL": {
-            "type": "string",
-            "defaultValue": "enialrahs.org",
-            "metadata": {
-                "description": "description"
             }
         },
         "installerGithubAccountName": {
@@ -124,7 +94,7 @@
         },
         "edxConfigurationGithubBranch": {
             "type": "string",
-            "defaultValue": "open-release/ironwood.master",
+            "defaultValue": "open-release/koa.master",
             "metadata": {
                 "description": "Open EdX configuration Github branch."
             }
@@ -779,9 +749,9 @@
                         "diskSizeGB": "[parameters('diskSize')]"
                     },
                     "imageReference": {
-                        "publisher": "Canonical",
-                        "offer": "UbuntuServer",
-                        "sku": "16.04-LTS",
+                        "publisher": "canonical",
+                        "offer": "0001-com-ubuntu-server-focal",
+                        "sku": "20_04-lts",
                         "version": "latest"
                     }
                 },
@@ -833,7 +803,7 @@
             "properties": {
                 "mode": "incremental",
                 "templateLink": {
-                    "uri": "https://gallery.azure.com/artifact/20161101/microsoft.custom-script-linux-arm.2.0.56/Artifacts/MainTemplate.json"
+                    "uri": "https://catalogartifact.azureedge.net/publicartifactsmigration/microsoft.custom-script-linux-arm.2.0.56/Artifacts/MainTemplate.json"
                 },
                 "parameters": {
                     "vmName": {
@@ -846,7 +816,7 @@
                         "value": []
                     },
                     "commandToExecute": {
-                        "value": "[concat('wget https://raw.githubusercontent.com/', parameters('installerGithubAccountName'), '/', parameters('installerGithubProjectName'), '/', parameters('installerGithubBranch'), '/utils/install/install-openedx.sh && sudo -H bash install-openedx.sh --edxconfiguration-public-github-accountname ', parameters('edxConfigurationGithubAccountName'), ' --edxconfiguration-public-github-projectname ', parameters('edxConfigurationGithubProjectName'), ' --edxconfiguration-public-github-projectbranch ', parameters('edxConfigurationGithubBranch'), ' --edxplatform-lms-base ', parameters('lmsBaseURL'), ' --edxplatform-cms-base ', parameters('cmsBaseURL'), '')]"
+                        "value": "[concat('wget https://raw.githubusercontent.com/', parameters('installerGithubAccountName'), '/', parameters('installerGithubProjectName'), '/', parameters('installerGithubBranch'), '/utils/install/install-openedx.sh && sudo -H bash install-openedx.sh --edxconfiguration-public-github-accountname ', parameters('edxConfigurationGithubAccountName'), ' --edxconfiguration-public-github-projectname ', parameters('edxConfigurationGithubProjectName'), ' --edxconfiguration-public-github-projectbranch ', parameters('edxConfigurationGithubBranch'), ' --installer-github-accountname ', parameters('installerGithubAccountName'), ' --installer-github-projectname ', parameters('installerGithubProjectName'), ' --installer-github-projectbranch ', parameters('installerGithubBranch'), '')]"
                     }
                 }
             },
